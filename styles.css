@@ -1,0 +1,212 @@
+/* ============================================
+   VARIABLES GLOBALES
+   ============================================ */
+:root {
+  --bg-primary: #0f1419;
+  --bg-card: #1a2332;
+  --bg-card-hover: #232f42;
+  --accent-voltaje: #00d4ff;
+  --accent-corriente: #ff6b6b;
+  --accent-resistencia: #ffd93d;
+  --accent-fase: #6bcb77;
+  --text-primary: #e8eef5;
+  --text-secondary: #8899a8;
+  --border: #2a3a4f;
+}
+
+/* ============================================
+   RESET Y BASE
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: var(--bg-card);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #00d4ff, #6bcb77);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  box-shadow: 0 0 10px #ff6b6b;
+  animation: pulse 2s infinite;
+}
+
+.dot.connected {
+  background: var(--accent-fase);
+  box-shadow: 0 0 10px var(--accent-fase);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ============================================
+   CARDS DE MÉTRICAS
+   ============================================ */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.metric-card.voltaje::before { background: var(--accent-voltaje); }
+.metric-card.corriente::before { background: var(--accent-corriente); }
+.metric-card.resistencia::before { background: var(--accent-resistencia); }
+.metric-card.fase::before { background: var(--accent-fase); }
+
+.metric-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.metric-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.metric-unit {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.metric-card.voltaje .metric-value { color: var(--accent-voltaje); }
+.metric-card.corriente .metric-value { color: var(--accent-corriente); }
+.metric-card.resistencia .metric-value { color: var(--accent-resistencia); }
+.metric-card.fase .metric-value { color: var(--accent-fase); }
+
+/* ============================================
+   GRÁFICA PRINCIPAL
+   ============================================ */
+.main-chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  height: 400px;
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+/* ============================================
+   GRID DE GRÁFICAS INDIVIDUALES
+   ============================================ */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  height: 280px;
+}
+
+.chart-card canvas {
+  max-height: 220px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .metric-value {
+    font-size: 1.8rem;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
