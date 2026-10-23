@@ -1,0 +1,7 @@
+# La ESP32 puede publicar, sin leer ni modificar otros temas.
+user IoTProyecto
+topic write iot/monitoreo/mediciones
+
+# El puente puede leer, sin publicar mediciones.
+user dashboard
+topic read iot/monitoreo/mediciones

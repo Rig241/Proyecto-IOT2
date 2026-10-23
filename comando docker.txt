@@ -1,0 +1,12 @@
+para levantar docker
+docker compose up -d
+
+comprobar estado
+docker compose ps
+
+pruebas
+python3 scripts/publicar_prueba.py
+
+detener
+
+docker compose down
